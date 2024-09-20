@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-const unverifiedAdminSchema = new mongoose.Schema(
+const unverifiedTeacherSchema = new mongoose.Schema(
   {
     name: { type: String, required: true },
     email: { type: String, required: true, unique: true },
@@ -14,4 +14,4 @@ const unverifiedAdminSchema = new mongoose.Schema(
   }
 );
 
-module.exports = mongoose.model("UnverifiedAdmin", unverifiedAdminSchema);
+module.exports = mongoose.model("UnverifiedTeacher", unverifiedTeacherSchema);

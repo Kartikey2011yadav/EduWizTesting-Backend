@@ -1,16 +1,16 @@
-const Admin = require("../Models/Admin");
+const Teacher = require("../Models/Teacher");
 
 const removeExpiredSessions = async () => {
   try {
-    const admins = await Admin.find({
+    const teachers = await Teacher.find({
       "sessions.expiresAt": { $lt: new Date() },
     });
 
-    for (const admin of admins) {
-      admin.sessions = admin.sessions.filter(
+    for (const teacher of teachers) {
+      teacher.sessions = teacher.sessions.filter(
         (session) => new Date(session.expiresAt) > new Date()
       );
-      await admin.save();
+      await teacher.save();
     }
   } catch (error) {
     console.error("Error while removing expired sessions:", error);
