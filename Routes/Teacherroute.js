@@ -7,7 +7,7 @@ const {
   verifyOtppasscode,
   forgotPassword,
   resetPassword,
-} = require("../Controller/AdminController");
+} = require("../Controller/TeacherController");
 const router = express.Router();
 
 router.post("/login", login);
