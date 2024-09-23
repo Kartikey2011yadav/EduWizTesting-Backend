@@ -5,7 +5,16 @@ const schedulepaperSchema = new mongoose.Schema({
   className: { type: String, required: true },
   subject: { type: String, required: true },
   marks: { type: Number, required: true },
-  duration: { type: Number, required: true },
+  duration: {
+    hours: {
+      type: Number,
+      required: true,
+    },
+    minutes: {
+      type: Number,
+      required: true,
+    },
+  },
   date: { type: String, required: true },
   time: { type: String, required: true }
 });
