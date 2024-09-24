@@ -1,4 +1,5 @@
 const express = require("express");
+const { Upload, removeFile } = require("../Controller/CloudinaryController");
 const {
   login,
   verifyOtp,
@@ -8,6 +9,9 @@ const {
   forgotPassword,
   resetPassword,
 } = require("../Controller/TeacherController");
+const multer = require("multer");
+const upload = multer({ storage: multer.memoryStorage() });
+
 const router = express.Router();
 
 router.post("/login", login);
@@ -17,5 +21,7 @@ router.post("/verifypasscode", verifyOtppasscode);
 router.post("/verify-session", verifySession);
 router.post("/forgot-password", forgotPassword);
 router.post("/reset-password", resetPassword);
+router.post("/upload", upload.single('file'), Upload);
+router.post("/remove-file", removeFile)
 
 module.exports = router;
