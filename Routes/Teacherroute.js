@@ -7,6 +7,7 @@ const {
   verifyOtppasscode,
   forgotPassword,
   resetPassword,
+  updateTeacherDetails,
 } = require("../Controller/TeacherController");
 const { schedulePaper } = require("../Controller/PaperController");
 
@@ -20,5 +21,6 @@ router.post("/verify-session", verifySession);
 router.post("/forgot-password", forgotPassword);
 router.post("/reset-password", resetPassword);
 router.post("/schedule-paper", schedulePaper);
+router.post("/update-details", updateTeacherDetails);
 
 module.exports = router;

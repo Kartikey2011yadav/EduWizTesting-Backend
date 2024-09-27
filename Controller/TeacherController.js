@@ -252,6 +252,42 @@ const resetPassword = async (req, res) => {
   }
 };
 
+const updateTeacherDetails = async (req,res) => {
+  
+
+  try {
+    const { teacherID, name, mobileNumber } = req.body;
+
+    if(!teacherID || !name || !!mobileNumber){
+      return res.status(404).json({
+        success: false,
+        message: 'All the Fields are necessary to be Filled'
+      })
+    }
+
+    const updatedTeacher = await Teacher.findByIdAndUpdate(teacherID,
+      {
+        name: name,
+        mobileNumber: mobileNumber,
+      },
+      {new: true}
+    );
+
+    return res.status(200).json({
+      success: true, 
+      message: 'Teacher Details Updated Successfully',
+      data: updatedTeacher
+    })
+    
+  } catch (error) {
+		return res.status(500).json({
+			success: false,
+			message: "Error occurred while updating Teacher",
+			error: error.message,
+		});
+  }
+};
+
 module.exports = {
   login,
   verifyOtp,
@@ -260,4 +296,5 @@ module.exports = {
   verifyOtppasscode,
   forgotPassword,
   resetPassword,
+  updateTeacherDetails
 };
