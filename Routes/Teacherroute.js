@@ -9,6 +9,8 @@ const {
   forgotPassword,
   resetPassword,
 } = require("../Controller/TeacherController");
+const { schedulePaper } = require("../Controller/PaperController");
+
 const multer = require("multer");
 const upload = multer({ storage: multer.memoryStorage() });
 
@@ -21,7 +23,8 @@ router.post("/verifypasscode", verifyOtppasscode);
 router.post("/verify-session", verifySession);
 router.post("/forgot-password", forgotPassword);
 router.post("/reset-password", resetPassword);
-router.post("/upload", upload.single('file'), Upload);
-router.post("/remove-file", removeFile)
+router.post("/schedule-paper", schedulePaper);
+router.post("/upload", upload.single("file"), Upload);
+router.post("/remove-file", removeFile);
 
 module.exports = router;
