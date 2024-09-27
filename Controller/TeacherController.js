@@ -3,7 +3,7 @@ const UnverifiedTeacher = require("../Models/UnverifiedTeacher");
 const {
   sendOtpToEmail,
   sendResetLinkToEmail,
-} = require("../config/nodemailer");
+} = require("../Config/nodemailer");
 const bcrypt = require("bcrypt");
 const crypto = require("crypto");
 
