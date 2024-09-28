@@ -15,9 +15,9 @@ const schedulepaperSchema = new mongoose.Schema({
       required: true,
     },
   },
-  date: { type: String, required: true },
+  date: { type: Date, required: true },
   time: { type: String, required: true },
-  teacher: { type: mongoose.Schema.Types.ObjectId, required: true }
+  teacher: { type: mongoose.Schema.Types.ObjectId, ref: 'Teacher', required: true }
 });
 
 const SchedulePapers = mongoose.model('SchedulePapers', schedulepaperSchema);

@@ -42,13 +42,15 @@ const getAllScheduledPapers= async (req, res) => {
   const presentDate = new Date(); 
   
   try{
-      //get teacher document
-      const teacher = await Teacher.findById(teacherID);
       
+      
+
       //finding all tests with a particular teacherID which are yet to take place
-      const allPapers = await SchedulePaper.find({teacher: teacher, date: {$gte: presentDate}})// will get only those papers which are  yet to happen
-          .sort({date: 1})//sort papers from lowest date to highest to view upcoming tests
-          .exec();
+      const allPapers = await SchedulePaper.find({teacher: teacherID, date: {$gte: presentDate}})// will get only those papers which are  yet to happen
+      .sort({date: 1})//sort papers from lowest date to highest to view upcoming tests
+      .exec();
+
+      console.log('All Papers:', allPapers);
 
       // return response
       return res.status(200).json({
