@@ -220,7 +220,7 @@ const resetPassword = async (req, res) => {
 
   try {
     const teacher = await Teacher.findOne({ email });
-
+    console.log(teacher)
     if (!teacher) {
       return res.status(404).json({ error: "Teacher not found" });
     }
