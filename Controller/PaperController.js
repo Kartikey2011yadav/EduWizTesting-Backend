@@ -1,3 +1,4 @@
+const { default: mongoose } = require('mongoose');
 const SchedulePaper = require('../Models/ScheduledPaper');
 const Teacher = require('../Models/Teacher');
 
@@ -24,11 +25,25 @@ const schedulePaper = async (req, res) => {
 };
 
 const getAllScheduledPapers= async (req, res) => {
-  const { sessionId } = req.body;
-  const presentDate = new Date(); // current date
+  
+  const { teacherID } = req.body;
+
+  //Check teacher ID is valid or not??
+  const isValid = mongoose.Types.ObjectId.isValid(teacherID);
+  if (!isValid) {
+      console.error('Invalid TeacherID');
+      return res.status(400).json({
+        success: false,
+        message : 'Invalid TeacherID'
+      });
+  }
+
+  // Present date
+  const presentDate = new Date(); 
+  
   try{
-      //get teacher ID
-      const teacher = await Teacher.findOne({ "sessions.sessionId": sessionId });
+      //get teacher document
+      const teacher = await Teacher.findById(teacherID);
       
       //finding all tests with a particular teacherID which are yet to take place
       const allPapers = await SchedulePaper.find({teacher: teacher, date: {$gte: presentDate}})// will get only those papers which are  yet to happen

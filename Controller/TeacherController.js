@@ -253,22 +253,31 @@ const resetPassword = async (req, res) => {
 };
 
 const updateTeacherDetails = async (req,res) => {
-  
 
   try {
-    const { teacherID, name, mobileNumber } = req.body;
+    const { teacherID, name, mobileNumber, newPassword, confirmPassword } = req.body;
 
-    if(!teacherID || !name || !!mobileNumber){
+    if(!teacherID || !name || !!mobileNumber || !newPassword || !confirmPassword){
       return res.status(404).json({
         success: false,
         message: 'All the Fields are necessary to be Filled'
       })
     }
 
+    if( newPassword != confirmPassword){
+      return res.status(400).json({
+        success: false, 
+        message: 'New Password and Confirm Password do not match'
+      })
+    }
+
+    const hashedPassword = await bcrypt.hash(newPassword, 10);
+
     const updatedTeacher = await Teacher.findByIdAndUpdate(teacherID,
       {
         name: name,
         mobileNumber: mobileNumber,
+        password: hashedPassword,
       },
       {new: true}
     );
