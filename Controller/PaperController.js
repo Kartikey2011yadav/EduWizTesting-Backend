@@ -1,11 +1,6 @@
-<<<<<<< HEAD
-const { default: mongoose } = require('mongoose');
-const SchedulePaper = require('../Models/ScheduledPaper');
-const Teacher = require('../Models/Teacher');
-=======
+const { default: mongoose } = require("mongoose");
 const Omr = require("../Models/Omr.model");
 const SchedulePaper = require("../Models/ScheduledPaper");
->>>>>>> a96caf128ab88814e3acf0854e580c8aaae69f88
 
 // Schedule a paper
 const schedulePaper = async (req, res) => {
@@ -102,13 +97,8 @@ const getAllScheduledPapers= async (req, res) => {
 };
 
 module.exports = {
-<<<<<<< HEAD
-    schedulePaper,
-    getAllScheduledPapers
-  };
-=======
   schedulePaper,
   submitOmr,
   getOmrSheets,
+  getAllScheduledPapers
 };
->>>>>>> a96caf128ab88814e3acf0854e580c8aaae69f88
