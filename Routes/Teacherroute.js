@@ -9,7 +9,6 @@ const {
   resetPassword,
   updateTeacherDetails,
 } = require("../Controller/TeacherController");
-const { schedulePaper } = require("../Controller/PaperController");
 
 const router = express.Router();
 
