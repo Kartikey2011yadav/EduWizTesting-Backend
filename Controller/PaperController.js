@@ -24,6 +24,21 @@ const schedulePaper = async (req, res) => {
   }
 };
 
+const getSchedulePaper = async (req, res) => {
+  try {
+    const teacherId = req.headers['teacher-id'];
+    
+    if (!teacherId) {
+      return res.status(400).json({ error: 'Teacher ID is required' });
+    }
+    
+    const scheduledPapers = await SchedulePaper.find({ teacherId }).sort({ date: 1 });
+    res.status(200).json(scheduledPapers);
+  } catch (err) {
+    res.status(500).json({ error: "Failed to get schedule papers", details: err });
+  }
+}
+
 const submitOmr = async (req, res) => {
   try {
     const { paperId, studentRollNo, fileLink, studentName } = req.body;
@@ -54,4 +69,5 @@ module.exports = {
   schedulePaper,
   submitOmr,
   getOmrSheets,
+  getSchedulePaper,
 };
