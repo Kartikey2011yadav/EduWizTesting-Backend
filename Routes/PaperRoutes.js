@@ -4,6 +4,7 @@ const {
   schedulePaper,
   submitOmr,
   getOmrSheets,
+  getSchedulePaper
 } = require("../Controller/PaperController");
 const multer = require("multer");
 const upload = multer({ storage: multer.memoryStorage() });
@@ -14,6 +15,8 @@ router.post("/schedule", schedulePaper);
 router.post("/upload", upload.single("file"), Upload);
 router.post("/remove-file", removeFile);
 router.post("/submit", submitOmr);
+
 router.get("/omr-sheets", getOmrSheets);
+router.get("/schedule", getSchedulePaper);
 
 module.exports = router;
