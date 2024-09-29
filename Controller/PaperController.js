@@ -3,7 +3,7 @@ const SchedulePaper = require('../Models/ScheduledPaper');
 // Schedule a paper
 const schedulePaper = async (req, res) => {
   try {
-    const { paperName, className, subject, marks, duration, date, time } = req.body;
+    const { paperName, className, subject, marks, duration, date, time, teacherId } = req.body;
     
     const newPaper = new SchedulePaper({
       paperName,
@@ -12,8 +12,10 @@ const schedulePaper = async (req, res) => {
       marks,
       duration,
       date,
-      time
+      time,
+      teacherId
     });
+    console.log(newPaper)
 
     const savedPaper = await newPaper.save();
     res.status(201).json(savedPaper);
