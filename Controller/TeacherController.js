@@ -3,7 +3,7 @@ const UnverifiedTeacher = require("../Models/UnverifiedTeacher");
 const {
   sendOtpToEmail,
   sendResetLinkToEmail,
-} = require("../config/nodemailer");
+} = require("../Config/nodemailer");
 const bcrypt = require("bcrypt");
 const crypto = require("crypto");
 
@@ -220,7 +220,7 @@ const resetPassword = async (req, res) => {
 
   try {
     const teacher = await Teacher.findOne({ email });
-
+    console.log(teacher)
     if (!teacher) {
       return res.status(404).json({ error: "Teacher not found" });
     }
