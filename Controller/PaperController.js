@@ -15,7 +15,6 @@ const schedulePaper = async (req, res) => {
       time,
       teacherId
     });
-    console.log(newPaper)
 
     const savedPaper = await newPaper.save();
     res.status(201).json(savedPaper);
