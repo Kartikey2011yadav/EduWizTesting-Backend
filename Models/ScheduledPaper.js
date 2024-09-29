@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
 
 const schedulepaperSchema = new mongoose.Schema({
   paperName: { type: String, required: true },
@@ -16,7 +17,11 @@ const schedulepaperSchema = new mongoose.Schema({
     },
   },
   date: { type: String, required: true },
-  time: { type: String, required: true }
+  time: { type: String, required: true },
+  teacherId: {
+    type: Schema.Types.ObjectId,
+    ref: "Teacher"
+  }
 });
 
 const SchedulePapers = mongoose.model('SchedulePapers', schedulepaperSchema);
