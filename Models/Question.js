@@ -8,6 +8,7 @@ const questionSchema = new mongoose.Schema({
   marks: { type: Number, required: true },
   option: { type: String, required: true },
   mcqOptions: [{ type: String }],
+  mcqAnswer: { type: String},
   expectedTime: {
     hours: { type: String, required: true },
     minutes: { type: String, required: true },

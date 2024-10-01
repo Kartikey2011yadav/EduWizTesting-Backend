@@ -9,6 +9,7 @@ const addQuestion = async (req, res) => {
     marks,
     option,
     mcqOptions,
+    mcqAnswer,
     expectedTime,
     divTag,
   } = req.body;
@@ -20,6 +21,7 @@ const addQuestion = async (req, res) => {
     marks,
     option,
     mcqOptions,
+    mcqAnswer,
     expectedTime,
     tags: divTag,
   });
