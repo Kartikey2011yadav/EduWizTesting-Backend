@@ -83,8 +83,43 @@ const updateQuestionbyId = async (req, res) => {
   }
 };
 
+const deleteQuestion = async (req, res) => {
+  try {
+    const { questionId } = req.params;
+    const { teacherId } = req.body;
+
+    // Find the question and ensure it belongs to the teacher
+    const question = await Question.findOne({
+      _id: questionId,
+      teacherId: teacherId
+    });
+
+    if (!question) {
+      return res.status(404).json({ 
+        success: false, 
+        message: 'Question not found or you do not have permission to delete it' 
+      });
+    }
+
+    // Delete the question
+    await Question.findByIdAndDelete(questionId);
+
+    res.status(200).json({ 
+      success: true, 
+      message: 'Question deleted successfully' 
+    });
+  } catch (error) {
+    console.error('Error deleting question:', error);
+    res.status(500).json({ 
+      success: false, 
+      message: 'An error occurred while deleting the question' 
+    });
+  }
+};
+
 module.exports = {
   addQuestion,
   getQuestionDetailsByTeacherId,
   updateQuestionbyId,
+  deleteQuestion,
 };
