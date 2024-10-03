@@ -41,7 +41,29 @@ const getQuestionDetailsByTeacherId = async(req,res)=>
     res.status(200).json({questions});
 }
 
+const updateQuestionbyId = async (req, res) => {
+  try {
+    const questionId = req.params.questionId;
+    const updatedData = req.body;
+    
+    const updatedQuestion = await Question.findByIdAndUpdate(
+      questionId,
+      updatedData,
+      { new: true }
+    );
+    
+    if (!updatedQuestion) {
+      return res.status(404).json({ error: 'Question not found' });
+    }
+    
+    res.json({ message: 'Question updated successfully', question: updatedQuestion });
+  } catch (error) {
+    res.status(500).json({ error: 'Error updating question' });
+  }
+};
+
 module.exports = {
   addQuestion,
   getQuestionDetailsByTeacherId,
+  updateQuestionbyId,
 };
