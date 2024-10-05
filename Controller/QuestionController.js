@@ -1,5 +1,4 @@
 const Question = require("../Models/Question");
-const bcrypt = require("bcrypt");
 
 const addQuestion = async (req, res) => {
   const {
@@ -22,7 +21,7 @@ const addQuestion = async (req, res) => {
     marks,
     option,
     mcqOptions,
-    mcqAnswer: await bcrypt.hash(mcqAnswer, 10),
+    mcqAnswer,
     expectedTime,
     tags: divTag,
   });
