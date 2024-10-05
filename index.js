@@ -7,6 +7,7 @@ const QuestionRoutes = require("./Routes/QuestionRoutes");
 const cors = require("cors");
 require("dotenv").config();
 const { removeExpiredSessions } = require("./utils/sessionCleanup");
+const StudentRoutes = require("./Routes/StudentRoute");
 
 const app = express();
 
@@ -36,13 +37,14 @@ app.use(
     secret: "your-secret-key",
     resave: false,
     saveUninitialized: true,
-    cookie: { secure: false }, 
+    cookie: { secure: false },
   })
 );
 
 app.use("/teacher", TeacherRoutes);
+app.use("/student", StudentRoutes);
 app.use("/paper", PaperRoutes);
-app.use("/question",QuestionRoutes);
+app.use("/question", QuestionRoutes);
 
 // Cleaning sessions
 setInterval(removeExpiredSessions, 30 * 60 * 1000); // every 30 minutes
