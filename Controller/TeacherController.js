@@ -250,13 +250,17 @@ const resetPassword = async (req, res) => {
 
 const editProfile = async (req, res) => {
   const { email, name, mobile_no, password } = req.body;
-  const hashedPassword = await bcrypt.hash(password, 10);
   const teacher = await Teacher.findOne({ email });
   if (!teacher) return res.status(404).json({ error: "Teacher not Found!!!" });
   try {
     teacher.name = name;
     teacher.mobileNumber = mobile_no;
-    teacher.password = hashedPassword;
+
+    // Hash the password only if it's provided
+    if (password) {
+      const hashedPassword = await bcrypt.hash(password, 10);
+      teacher.password = hashedPassword;
+    }
     await teacher.save();
     res.status(200).json({ message: "Profile Updated Successfully!!!" });
   } catch (err) {
