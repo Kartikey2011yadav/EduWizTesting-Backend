@@ -73,12 +73,10 @@ const verifyOtppasscode = async (req, res) => {
     await teacher.save();
     await UnverifiedTeacher.deleteOne({ email });
 
-    res
-      .status(200)
-      .json({
-        success: true,
-        message: "Verification successful. You can now log in.",
-      });
+    res.status(200).json({
+      success: true,
+      message: "Verification successful. You can now log in.",
+    });
   } catch (error) {
     res.status(500).json({ error: "Server error" });
   }
@@ -130,8 +128,6 @@ const verifyOtp = async (req, res) => {
     if (teacher.otp !== otp || Date.now() > teacher.otpExpiry) {
       return res.status(400).json({ error: "Invalid or expired OTP" });
     }
-
-    
 
     // Clear OTP and OTP expiry after successful verification
     teacher.otp = null;
@@ -220,7 +216,7 @@ const resetPassword = async (req, res) => {
 
   try {
     const teacher = await Teacher.findOne({ email });
-    console.log(teacher)
+    console.log(teacher);
     if (!teacher) {
       return res.status(404).json({ error: "Teacher not found" });
     }
@@ -252,6 +248,38 @@ const resetPassword = async (req, res) => {
   }
 };
 
+const editProfile = async (req, res) => {
+  const { email, name, mobile_no, password } = req.body;
+  const teacher = await Teacher.findOne({ email });
+  if (!teacher) return res.status(404).json({ error: "Teacher not Found!!!" });
+  try {
+    teacher.name = name;
+    teacher.mobileNumber = mobile_no;
+
+    // Hash the password only if it's provided
+    if (password) {
+      const hashedPassword = await bcrypt.hash(password, 10);
+      teacher.password = hashedPassword;
+    }
+    await teacher.save();
+    res.status(200).json({ message: "Profile Updated Successfully!!!" });
+  } catch (err) {
+    res.status(500).json({ error: err });
+  }
+};
+
+const getUserProfileDetailsByTeacherId = async (req, res) => {
+  const { teacherId } = req.body;
+  try {
+    const teacher = await Teacher.findOne({ _id: teacherId });
+    if (!teacher)
+      return res.status(404).json({ error: "Teacher not found!!!" });
+    res.status(200).json({ teacher: teacher });
+  } catch (err) {
+    return res.status(500).json({ error: err });
+  }
+};
+
 module.exports = {
   login,
   verifyOtp,
@@ -260,4 +288,6 @@ module.exports = {
   verifyOtppasscode,
   forgotPassword,
   resetPassword,
+  editProfile,
+  getUserProfileDetailsByTeacherId,
 };
